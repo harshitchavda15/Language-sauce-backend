@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from models.user_model import User  
-from schemas.user_schema import UserCreate
+from schemas.user_schema import CreateUser
 from auth.auth import hash_password
 import logging
 
-async def create_user(session: AsyncSession, user: UserCreate):
+async def create_user(session: AsyncSession, user: CreateUser):
     try:
         # Hash the user's password
         hashed_password = hash_password(user.password)
@@ -47,3 +47,19 @@ async def get_user_by_username(session: AsyncSession, username: str):
     except Exception as e:
         logging.error(f"Error fetching user by username: {e}")
         raise e
+
+async def get_user_by_email(db: AsyncSession, email: str):
+    stmt = select(User).where(User.email == email)
+    result = await db.execute(stmt)
+    return result.scalar_one_or_none()
+
+async def add_user(email,fullname,password):
+    new_user=User(
+        email=email,
+        full_name=fullname,
+        password=password
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user

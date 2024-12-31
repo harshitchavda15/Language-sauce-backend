@@ -9,10 +9,9 @@ Base = declarative_base()
 
 class Snippet(Base):
     __tablename__ = "snippets"
-
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
     content = Column(String, nullable=False)
-    author_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    author_id = Column(Integer, ForeignKey("users.id"))
 
-    author = relationship("User", back_populates="snippets")
+    user = relationship("User", back_populates="snippets")

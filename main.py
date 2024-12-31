@@ -41,6 +41,7 @@ app.add_middleware(
 app.include_router(user_router, prefix="/api/v1/users", tags=["Users"])
 app.include_router(otp_router, prefix="/api/v1/otp", tags=["OTP"])
 app.include_router(snippet_router, prefix="/api/v1/snippets", tags=["Snippets"])
+app.include_router(user_router, prefix="/api/v1/users", tags=["Users"])
 
 @app.get("/")
 async def root():
@@ -51,6 +52,8 @@ async def root():
 async def startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        print("Tables created successfully!")
+
 
 # Dependency to get the database session
 async def get_session() -> AsyncSession:

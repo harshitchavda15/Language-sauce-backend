@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.exc import SQLAlchemyError
-from models.snippet import Snippet
+from models.snippet_model import Snippet
 from schemas.snippet import SnippetCreate
 import logging
 
