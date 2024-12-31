@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
-from app.services.verification import OTPService
+from services.verification import OTPService
 from models import User  # Assuming you have a User model
 from utils.email import is_email_registered  # Check if the email is already registered
 

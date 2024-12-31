@@ -8,30 +8,14 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = "users"
-    
-    # Primary key
+
     id = Column(Integer, primary_key=True, index=True)
-    
-    # Unique username
-    username = Column(String(50), unique=True, index=True, nullable=False)
-    
-    # Unique email
-    email = Column(String(255), unique=True, index=True, nullable=False)
-    
-    # Full name of the user
-    full_name = Column(String(255), nullable=True)
-    
-    # Hashed password for authentication
-    hashed_password = Column(String(255), nullable=False)
-    
-    # Timestamp for when the user was created
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    
-    # Timestamp for when the user was last updated
-    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
-    
-    # Relationship to snippets (if applicable)
-    snippets = relationship("Snippet", back_populates="author")  # Adjust if Snippet model exists
+    username = Column(String, unique=True, nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    hashed_password = Column(String, nullable=False)
+
+    snippets = relationship("Snippet", back_populates="author")
+
 
 class OTP(Base):
     __tablename__ = "otps"

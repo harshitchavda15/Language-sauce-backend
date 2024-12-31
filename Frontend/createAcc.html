@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Stripe Account</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+
+    <nav>
+        <a href="./index.html" style="text-decoration: none;">
+            <div class="siteLogo">
+                <span style="color: black;">LS</span><span style="color: blue;">DOCS</span>
+            </div>
+        </a>
+    </nav>
+
+    <div class="LoginBackground">
+        <div class="blue-bar"></div>
+        <div class="purple-bar"></div>
+    </div>
+
+    <div class="mainForm">
+        <div class="CreateAccHeader">Create your Stripe account</div>
+        <form>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="full-name">Full name</label>
+                <input type="text" id="full-name" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Create a password">
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <select id="country">
+                    <option value="us" selected>United States</option>
+                    <option value="ca">Canada</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="au">Australia</option>
+                    <option value="in">India</option>
+                    <option value="fr">France</option>
+                    <option value="de">Germany</option>
+                    <option value="jp">Japan</option>
+                    <option value="cn">China</option>
+                    <option value="ru">Russia</option>
+                    <option value="it">Italy</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">Create account</button>
+        </form>
+        <div class="additional-links">
+            Already have an account? <a href="./login.html">Sign in</a>
+        </div>
+    </div>
+</body>
+
+</html>

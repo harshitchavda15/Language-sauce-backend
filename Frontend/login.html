@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>LS Docs Sign-In</title>
+</head>
+
+<body>
+
+    <nav>
+        <a href="./index.html" style="text-decoration: none;">
+            <div class="siteLogo">
+                <span style="color: black;">LS</span><span style="color: blue;">DOCS</span>
+            </div>
+        </a>
+    </nav>
+
+
+    <div class="LoginBackground">
+        <div class="blue-bar"></div>
+        <div class="purple-bar"></div>
+    </div>
+
+    <div class="mainForm">
+        <div class="logo">Login</div>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            <div class="form-options">
+                <label>
+                    <input type="checkbox">
+                    Remember me on this device
+                </label>
+                <a href="#">Forgot your password?</a>
+            </div>
+            <button type="submit" class="submit-btn">Sign In</button>
+        </form>
+        
+        <div class="additional-links">
+            New to LS? <a href="./createAcc.html">Create account</a>
+        </div>
+        <div class="footer-note">
+            Bookmark this page and only use the bookmark to sign in to avoid phishing attempts. Phishing websites
+            pretend to be LS to access your password.
+        </div>
+    </div>
+    <script>
+        document.getElementById("login-form").addEventListener("submit", async (event) => {
+            event.preventDefault(); // Prevent the default form submission behavior
+    
+            // Get the input values
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+    
+            try {
+                // Make a POST request to the backend login endpoint
+                const response = await fetch("http://localhost:8000/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: new URLSearchParams({
+                        username: email, // Assuming email is used as the username
+                        password: password
+                    })
+                });
+    
+                if (!response.ok) {
+                    throw new Error("Login failed. Please check your credentials.");
+                }
+    
+                // Parse the response JSON
+                const data = await response.json();
+                console.log("Login successful:", data);
+    
+                // Store the token in localStorage
+                localStorage.setItem("token", data.access_token);
+    
+                // Redirect to a dashboard or homepage
+                window.location.href = "./index.html"; // Change this to your desired page
+            } catch (error) {
+                alert(error.message); // Show an error message to the user
+            }
+        });
+    </script>
+    
+</body>
+
+</html>

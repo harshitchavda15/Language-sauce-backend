@@ -2,10 +2,13 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
-from database.session import SessionLocal, engine
-from models import Base  # Ensure correct import path for Base
+from database.session import SessionLocal, engine, Base
+from config import settings
 from crud.user_crud import get_user_by_username
 from auth.auth import verify_password, create_access_token
+from routes.user import router as user_router
+from routes.otp import router as otp_router
+from routes.snippet import router as snippet_router
 import os
 from dotenv import load_dotenv
 
@@ -16,25 +19,32 @@ load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-# Print database credentials for debugging (REMOVE in production)
-print("Database URL:", DATABASE_URL)
-print("Secret Key:", SECRET_KEY)
+# Debug info (REMOVE in production)
+if os.getenv("ENV", "development") == "development":
+    print("Database URL:", DATABASE_URL)
+    print("Secret Key:", SECRET_KEY)
 
 # FastAPI application instance
-app = FastAPI()
+app = FastAPI(title="LS Backend", version="1.0.0")
 
 # Add CORS middleware
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:5500").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5500"],  # Replace with the actual frontend URL
+    allow_origins=settings.ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
+# Include routers
+app.include_router(user_router, prefix="/api/v1/users", tags=["Users"])
+app.include_router(otp_router, prefix="/api/v1/otp", tags=["OTP"])
+app.include_router(snippet_router, prefix="/api/v1/snippets", tags=["Snippets"])
 
 @app.get("/")
 async def root():
-    return {"message": "CORS is working!"}
+    return {"message": "API is running!"}
 
 # Ensure that the tables are created on startup
 @app.on_event("startup")
@@ -48,7 +58,7 @@ async def get_session() -> AsyncSession:
         yield session
 
 # Login endpoint
-@app.post("/login")
+@app.post("/login", tags=["Authentication"])
 async def login(
     form_data: OAuth2PasswordRequestForm = Depends(), 
     session: AsyncSession = Depends(get_session)
