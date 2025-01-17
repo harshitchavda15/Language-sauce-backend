@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeVault - Saved Snippets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+
+    <body>
+        <nav>
+            <a href="./index.html" style="text-decoration: none">
+                <div class="siteLogo">
+                    <span class="LSLogo">LS</span><span class="DOCSLogo">DOCS</span>
+                </div>
+            </a>
+
+            <div class="searchBar">
+                <i class="fa fa-search searchIcon"></i>
+                <input type="text" id="searchInput" placeholder="Find cool stuff..." />
+            </div>
+            <div id="searchResults" class="search-results"></div>
+
+            <div>
+                <ul style="list-style: none; padding: 0">
+                    <div>
+                        <input type="checkbox" class="checkbox" id="checkbox" />
+                        <label for="checkbox" class="checkbox-label">
+                            <i class="fas fa-moon"></i>
+                            <i class="fas fa-sun"></i>
+                            <span class="ball"></span>
+                        </label>
+                    </div>
+                    <li class="listItems">
+                        <a href="./index.html" style="text-decoration: none">Go Home</a>
+                    </li>
+                    <li class="listItems">
+                        <a href="./docs.html" style="text-decoration: none">Docs & Chill</a>
+                    </li>
+                    <li class="listItems">
+                        <a href="./help.html" style="text-decoration: none">Need a Lifeline?</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <div class="profile-container">
+                    <i class="fa-solid fa-gear" style="font-size: 1.5rem" id="profileDropdownButton"></i>
+                    <span class="profile-label">Settings </span>
+                </div>
+                <ul class="dropdown-menu" id="profileDropdown" >
+                    <li><a href="./profile.html">My Profile</a></li>
+                    <li><a href="./saved-2.html">Saved Snippets</a></li>
+                    <li><a href="./login.html">Sign In</a></li>
+                    <li><a href="./createAcc.html">Create Account</a></li>
+                    <li class="logout"><a href="#">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="Saved-snip-hero">
+            <h2>Saved Snippits</h2>
+            <p>Your all favourite snippets are here enjoy!!</p>
+        </div>
+
+        <!-- Snippet Cards -->
+        <div class="saved-snippet-container" id="saved-snippet-container">
+            <!-- Cards are dynamically added here -->
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <p>Lost? <a href="#">Call Support (Not your mom)</a></p>
+                    <p>Want insider secrets? <a href="#">Join Early Access</a></p>
+                    <p>Staying curious? <a href="#">Check the Changelog</a></p>
+                    <p>Still confused? <a href="#">Ask the Experts</a></p>
+                    <p class="powered">
+                        Proudly powered by <a href="#">Lok Jagrut University (LJU)</a>
+                    </p>
+                </div>
+                <div class="footer-signup">
+                    <label for="email">Get updates (we promise they're interesting):</label>
+                    <div class="signup-form">
+                        <input type="email" id="email" placeholder="Enter your email" aria-label="Email address" />
+                        <button id="signup-btn">Subscribe Now</button>
+                    </div>
+                    <small>
+                        No spam, only good vibes. Unsubscribe anytime. See our
+                        <a href="#">Privacy Policy</a>.
+                    </small>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // Snippet Data
+            const snippets = [
+                {
+                    "title": "Hello World in Python",
+                    "description": "Print 'Hello, World!' in Python.",
+                    "code": `import java.util.Scanner;
+
+class Account {
+    private String accountHolder;
+    private double balance;
+
+    public Account(String accountHolder, double balance) {
+        this.accountHolder = accountHolder;
+        this.balance = balance;
+    }
+
+    public void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposited: " + amount);
+    }
+
+    public void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient balance!");
+        }
+    }
+
+    public void checkBalance() {
+        System.out.println("Current Balance: " + balance);
+    }
+}
+
+public class BankingSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Create an account
+        Account account = new Account("John Doe", 1000);
+
+        while (true) {
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Check Balance");
+            System.out.println("4. Exit");
+            System.out.print("Enter choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter deposit amount: ");
+                    double depositAmount = scanner.nextDouble();
+                    account.deposit(depositAmount);
+                    break;
+                case 2:
+                    System.out.print("Enter withdraw amount: ");
+                    double withdrawAmount = scanner.nextDouble();
+                    account.withdraw(withdrawAmount);
+                    break;
+                case 3:
+                    account.checkBalance();
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Try again.");
+            }
+        }
+    }
+}`,
+                    "file_name": "hello_world.py",
+                    "use_cases": ["Learning syntax", "Testing Python setup"]
+                },
+                {
+                    "title": "Responsive Layout in CSS",
+                    "description": "Create a responsive layout using CSS Grid.",
+                    "code": `.grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }`,
+                    "file_name": "responsive_layout.css",
+                    "use_cases": ["Web design", "Responsive layouts"]
+                },
+                {
+                    "title": "Basic Calculator in JavaScript",
+                    "description": "A simple calculator to add two numbers.",
+                    "code": `function add(a, b) { return a + b; } console.log(add(2, 3));`,
+                    "file_name": "calculator.js",
+                    "use_cases": ["JavaScript basics", "Arithmetic operations"]
+                }
+            ];
+
+            const container = document.getElementById('saved-snippet-container');
+
+            // Generate Cards
+            snippets.forEach(snippet => {
+                const card = document.createElement('div');
+                card.className = 'snippet-card';
+                card.innerHTML = `
+                <div class="card-header">${snippet.title}</div>
+                <div class="card-body">
+                    <p><strong>Description:</strong> ${snippet.description}</p>
+                    <pre><copyy>${snippet.code}</copyy></pre>
+                    <p><strong>Use Cases:</strong></p>
+                    <ul>${snippet.use_cases.map(useCase => `<li>${useCase}</li>`).join('')}</ul>
+                </div>
+            `;
+                container.appendChild(card);
+            });
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const themeSwitch = document.getElementById("checkbox");
+                const currentTheme = localStorage.getItem("theme");
+
+                // Apply saved theme on page load
+                if (currentTheme) {
+                    document.documentElement.setAttribute("data-theme", currentTheme);
+                    themeSwitch.checked = currentTheme === "dark";
+                }
+
+                // Toggle theme
+                themeSwitch.addEventListener("change", () => {
+                    const theme = themeSwitch.checked ? "dark" : "light";
+                    document.documentElement.setAttribute("data-theme", theme);
+                    localStorage.setItem("theme", theme);
+                });
+            });
+            
+        </script>
+        <script src="./main.js"></script>
+    </body>
+
+</html>

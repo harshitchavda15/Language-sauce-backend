@@ -1,0 +1,32 @@
+{
+  "profileHeader": {
+    "avatar": {
+      "src": "./IMG-20240922-WA0001.jpg",
+      "alt": "Profile Picture",
+      "editButtonIconClass": "fa fa-edit"
+    },
+    "name": "Harshil Trivedi",
+    "email": "harshil@example.com",
+    "editProfileLink": "./editProfile.html",
+    "editProfileText": "Edit Profile"
+  },
+  "profileContent": {
+    "accountInfo": {
+      "title": "Account Information",
+      "items": [
+        { "label": "Name", "value": "Harshal kacha" },
+        { "label": "Email", "value": "harshil@example.com" },
+        { "label": "Contact", "value": "+91-7698240280" },
+        { "label": "Password", "buttonText": "Reset Password" }
+      ]
+    },
+   
+    "settings": {
+      "title": "Settings",
+      "items": [
+        { "label": "Theme", "buttonText": "Dark Mode" },
+        { "label": "Logout", "buttonText": "Logout" }
+      ]
+    }
+  }
+}

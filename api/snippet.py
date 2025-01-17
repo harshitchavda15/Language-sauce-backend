@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from schemas.snippet import SnippetCreate, SnippetResponse
-from crud.snippet import create_snippet, get_all_snippets, get_snippet, delete_snippet
+from schemas.snippet_schema import SnippetCreate, SnippetResponse
+from crud.snippet_crud import create_snippet, get_all_snippets, get_snippet, delete_snippet
 from database.session import get_session  # Dependency to get the database session
 
 router = APIRouter()

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programming Snippets & Docs</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body>
+  <nav>
+    <a href="./index.html" style="text-decoration: none">
+      <div class="siteLogo">
+        <span class="LSLogo">LS</span><span class="DOCSLogo">DOCS</span>
+      </div>
+    </a>
+
+    <div class="searchBar">
+      <i class="fa fa-search searchIcon"></i>
+      <input type="text" id="searchInput" placeholder="Search Now" />
+    </div>
+    <div id="searchResults" class="search-results"></div>
+
+    <div>
+      <ul style="list-style: none; padding: 0">
+        <div>
+          <input type="checkbox" class="checkbox" id="checkbox" />
+          <label for="checkbox" class="checkbox-label">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+            <span class="ball"></span>
+          </label>
+        </div>
+        <li class="listItems">
+          <a href="./index.html" style="text-decoration: none">Go Home</a>
+        </li>
+        <li class="listItems">
+          <a href="./docs.html" style="text-decoration: none">Docs & Chill</a>
+        </li>
+        <li class="listItems">
+          <a href="./help.html" style="text-decoration: none">Need a Lifeline?</a>
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- Profile Section -->
+    <div class="profile-section">
+      <div class="profile-container">
+        <i class="fa-solid fa-gear" style="font-size: 1.5rem" id="profileDropdownButton"></i>
+        <span class="profile-label">Settings </span>
+      </div>
+      <ul class="dropdown-menu" id="profileDropdown">
+        <li><a href="./profile.html">My Profile</a></li>
+        <li><a href="./saved-2.html">Saved Snippets</a></li>
+        <li><a href="./login.html">Sign In</a></li>
+        <li><a href="./createAcc.html">Create Account</a></li>
+        <li class="logout"><a href="#">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+  <section class="docsSection">
+    <!-- Left Sidebar -->
+
+    <!-- Main Content Section -->
+    <main class="content" style="
+          line-height: 1.8;
+          font-family: Arial, sans-serif;
+          text-align: left;
+          padding: 2rem;
+        ">
+      <!-- Help & Support Section -->
+      <section id="faqSection">
+        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem">
+          Help & Support
+        </h1>
+        <hr style="margin-bottom: 1.5rem" />
+
+        <!-- Getting Started -->
+        <div style="margin-bottom: 2rem">
+          <h2 style="
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+              ">
+            Getting Started
+          </h2>
+          <p style="margin-bottom: 0.8rem">
+            Welcome to LS DOCS! Follow these simple steps to begin your
+            journey:
+          </p>
+          <ul style="margin-left: 1.5rem; list-style-type: disc">
+            <li style="margin-bottom: 0.5rem">
+              Visit the homepage and click <strong>Sign Up</strong>.
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              Fill in your details, including name, email, and password.
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              Verify your email by clicking the confirmation link.
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              Log in and access your personalized dashboard!
+            </li>
+          </ul>
+        </div>
+
+        <!-- Using LS DOCS -->
+        <div style="margin-bottom: 2rem">
+          <h2 style="
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+              ">
+            Using LS DOCS
+          </h2>
+          <p style="margin-bottom: 0.8rem">
+            Explore powerful tools designed for productivity and
+            collaboration:
+          </p>
+          <ul style="margin-left: 1.5rem; list-style-type: disc">
+            <li style="margin-bottom: 0.5rem">
+              Create documents effortlessly with the
+              <strong>New Document</strong> feature.
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              Choose from a wide range of templates for reports, resumes, and
+              more.
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              Share files with your team, assign roles, and collaborate in
+              real time.
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              Track recent activity and access quick actions directly from
+              your dashboard.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Advanced Features -->
+        <div style="margin-bottom: 2rem">
+          <h2 style="
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+              ">
+            Advanced Features
+          </h2>
+          <p style="margin-bottom: 0.8rem">
+            Maximize efficiency with these advanced tools:
+          </p>
+          <ul style="margin-left: 1.5rem; list-style-type: disc">
+            <li style="margin-bottom: 0.5rem">
+              <strong>Version Control:</strong> Access previous versions of
+              your documents with a single click.
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              <strong>Real-Time Collaboration:</strong> Chat with team members
+              and leave comments directly in the document.
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              <strong>File Conversion:</strong> Export your files in PDF,
+              DOCX, or TXT formats seamlessly.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Account Management -->
+        <div style="margin-bottom: 2rem">
+          <h2 style="
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+              ">
+            Account Management
+          </h2>
+          <p style="margin-bottom: 0.8rem">
+            Take control of your account with these settings:
+          </p>
+          <ul style="margin-left: 1.5rem; list-style-type: disc">
+            <li style="margin-bottom: 0.5rem">
+              Update your profile details, such as name and email.
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              Reset your password securely through the
+              <strong>Forgot Password</strong> option.
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              Manage your subscription plan under <strong>Billing</strong>.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div style="margin-bottom: 2rem">
+          <h2 style="
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+              ">
+            Troubleshooting
+          </h2>
+          <p style="margin-bottom: 0.8rem">Resolve common issues quickly:</p>
+          <ul style="margin-left: 1.5rem; list-style-type: disc">
+            <li style="margin-bottom: 0.5rem">
+              <strong>Document Not Saving:</strong> Check your internet
+              connection and ensure you have available storage.
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              <strong>File Upload Errors:</strong> Confirm the file format is
+              supported and clear your browser cache.
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              <strong>Collaboration Issues:</strong> Verify permissions and
+              ensure all shared users have accepted the invitation.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact Us -->
+        <div>
+          <h2 style="
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+              ">
+            Contact Us
+          </h2>
+          <p style="margin-bottom: 0.8rem">
+            We're here to help! Reach out to us through the following
+            channels:
+          </p>
+          <ul style="margin-left: 1.5rem; list-style-type: disc">
+            <li style="margin-bottom: 0.5rem">
+              <strong>Email:</strong> support@lsdocs.com
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              <strong>Live Chat:</strong> Available during business hours.
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              <strong>Help Center:</strong> Access tutorials and guides in our
+              knowledge base.
+            </li>
+          </ul>
+        </div>
+
+        <p style="margin-top: 1.5rem; font-style: italic">
+          Thank you for choosing LS DOCS! Let's make your documenting
+          experience seamless and enjoyable.
+        </p>
+      </section>
+    </main>
+
+    <!-- Right Sidebar -->
+    <section class="rightbar">
+      <!-- Community Contributions (Dynamic Placeholder) -->
+      <section id="communityContributions">
+        <h1>About Us</h1>
+        <hr />
+        <br />
+        <p>
+          LS DOCS was founded with a vision to redefine the way people work
+          with documents. Our team of passionate innovators, developers, and
+          customer-centric professionals is committed to creating tools that
+          simplify complex workflows and boost productivity. We understand the
+          value of your time and the importance of your work. That’s why we
+          offer a platform that combines functionality with ease of use,
+          catering to professionals, students, and businesses alike.
+        </p>
+        <p>Want to see your name here? <a href="#">Contribute now!</a></p>
+      </section>
+    </section>
+  </section>
+
+  <script src="./docsScript2.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Language Sauce</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <nav>
+      <a href="./index.html" style="text-decoration: none">
+        <div class="siteLogo">
+          <span class="LSLogo">LS</span><span class="DOCSLogo">DOCS</span>
+        </div>
+      </a>
+
+      <div class="searchBar">
+        <i class="fa fa-search searchIcon"></i>
+        <input type="text" id="searchInput" placeholder="Find cool stuff..." />
+      </div>
+      <div id="searchResults" class="search-results"></div>
+
+      <div>
+        <ul style="list-style: none; padding: 0">
+          <div>
+              <input type="checkbox" class="checkbox" id="checkbox" />
+              <label for="checkbox" class="checkbox-label">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+                <span class="ball"></span>
+              </label>
+            </div>
+          <li class="listItems">
+            <a href="./index.html" style="text-decoration: none">Go Home</a>
+          </li>
+          <li class="listItems">
+            <a href="./docs.html" style="text-decoration: none">Docs & Chill</a>
+          </li>
+          <li class="listItems">
+            <a href="./help.html" style="text-decoration: none">Need a Lifeline?</a>
+          </li>
+        </ul>
+
+      </div>
+
+      <!-- Profile Section -->
+      <div class="profile-section">
+        <div class="profile-container">
+          <i
+            class="fa-solid fa-gear"
+            style="font-size: 1.5rem"
+            id="profileDropdownButton"
+          ></i>
+          <span class="profile-label">Settings </span>
+        </div>
+        <ul class="dropdown-menu" id="profileDropdown">
+          <li><a href="./profile.html">My Profile</a></li>
+          <li><a href="./saved-2.html">Saved Snippets</a></li>
+          <li><a href="./login.html">Sign In</a></li>
+          <li><a href="./createAcc.html">Create Account</a></li>
+          <li class="logout"><a href="#">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <section class="heroSection">
+      <div class="heroSectionLeft">
+        <p class="heading">Documentation</p>
+        <p class="heroSectionLeftContent" style="font-size: 1.3em">
+          Stop guessing and start coding! Our docs and snippets are <br />
+          here to save the day (and your deadlines).
+        </p>
+        <a href="./docs.html" style="text-decoration: none"
+          ><button class="btnExplore">Explore</button></a
+        >
+      </div>
+
+      <div class="heroSectionRight">
+        <div class="signInLinks">
+          Code, learn, repeat—because who needs sleep anyway?
+        </div>
+
+        <div class="tiltedHeroBox">
+          <div class="tiltedHeroBoxLine"></div>
+          <a class="DonatLink">Fuel us—Donate!</a>
+
+          <svg
+            class="creditCardChip"
+            xmlns="http://www.w3.org/2000/svg"
+            width="70"
+            height="40"
+            viewBox="0 0 120 80"
+            fill="none"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <!-- Outer Rectangle for the chip -->
+            <rect
+              x="10"
+              y="10"
+              width="100"
+              height="60"
+              rx="8"
+              fill="#c0c0c0"
+              stroke="#808080"
+            />
+
+            <!-- Vertical lines -->
+            <line x1="30" y1="10" x2="30" y2="70" stroke="#808080" />
+            <line x1="50" y1="10" x2="50" y2="70" stroke="#808080" />
+            <line x1="70" y1="10" x2="70" y2="70" stroke="#808080" />
+            <line x1="90" y1="10" x2="90" y2="70" stroke="#808080" />
+
+            <!-- Horizontal Lines -->
+            <line x1="10" y1="30" x2="110" y2="30" stroke="#808080" />
+            <line x1="10" y1="50" x2="110" y2="50" stroke="#808080" />
+
+            <!-- Inner rectangles to mimic chip sections -->
+            <rect
+              x="35"
+              y="25"
+              width="20"
+              height="30"
+              rx="2"
+              fill="#b3b3b3"
+              stroke="#666666"
+            />
+            <rect
+              x="65"
+              y="25"
+              width="20"
+              height="30"
+              rx="2"
+              fill="#b3b3b3"
+              stroke="#666666"
+            />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="heroScrollerSection">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <a onclick="displayCode('python_tictactoe')">Python - Tic Tac Toe</a>
+        <a onclick="displayCode('java_bfsdfs')">Java - BFS & DFS Algorithms</a>
+        <a onclick="displayCode('js_login')">JavaScript - Login Page</a>
+        <a onclick="displayCode('cpp_sorting')">C++ - Sorting Algorithms</a>
+        <a onclick="displayCode('php_forms')">PHP - Backend for Forms</a>
+        <a onclick="displayCode('ts_todo')">TypeScript - To-Do App</a>
+        <a onclick="displayCode('r_visualization')">R - Data Visualization</a>
+        <a onclick="displayCode('dart_chat')">Dart - Chat Application</a>
+        <a onclick="displayCode('bash_backup')">Bash - Automate Backups</a>
+      </div>
+
+      <!-- Terminal -->
+      <div class="terminal" id="terminal">
+        <button id="copyButton" title="Copy to Clipboard">
+          <i class="fas fa-copy"></i> Get Code
+        </button>
+        <div id="toast" class="toast">Code copied to clipboard!</div>
+        <div id="codeOutput">
+          <!-- Default Terminal Content -->
+          Loading......
+        </div>
+        <!-- Bottom Links -->
+        <div class="bottom-links">
+          <a href="#">Sign in</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="languageSelector">
+      <h1>Browse by Languages & Frame-Works</h1>
+      <div class="grid">
+        <div class="item python">
+          <div class="icon"><i class="fab fa-python"></i></div>
+          <p>
+            <strong>Python</strong><br />Data science and backend development
+          </p>
+        </div>
+        <div class="item java">
+          <div class="icon"><i class="fab fa-java"></i></div>
+          <p><strong>Java</strong><br />Enterprise-level applications</p>
+        </div>
+        <div class="item js">
+          <div class="icon"><i class="fab fa-js"></i></div>
+          <p>
+            <strong>JavaScript</strong><br />Frontend interactivity and
+            full-stack development
+          </p>
+        </div>
+        <div class="item php">
+          <div class="icon"><i class="fab fa-php"></i></div>
+          <p>
+            <strong>PHP</strong><br />Server-side scripting for web applications
+          </p>
+        </div>
+        <div class="item html5">
+          <div class="icon"><i class="fab fa-html5"></i></div>
+          <p><strong>HTML</strong><br />Website structure</p>
+        </div>
+        <div class="item css3">
+          <div class="icon"><i class="fab fa-css3-alt"></i></div>
+          <p><strong>CSS</strong><br />Website styling</p>
+        </div>
+        <div class="item node">
+          <div class="icon"><i class="fab fa-node-js"></i></div>
+          <p><strong>Node.js</strong><br />Backend with JavaScript</p>
+        </div>
+        <div class="item swift">
+          <div class="icon"><i class="fab fa-swift"></i></div>
+          <p>
+            <strong>Swift</strong><br />iOS and macOS application development
+          </p>
+        </div>
+        <div class="item react">
+          <div class="icon"><i class="fab fa-react"></i></div>
+          <p><strong>React</strong><br />Frontend framework</p>
+        </div>
+        <div class="item angular">
+          <div class="icon"><i class="fab fa-angular"></i></div>
+          <p><strong>Angular</strong><br />Enterprise-level frontend apps</p>
+        </div>
+        <div class="item C">
+          <div class="icon"><i class="fab fa-cuttlefish"></i></div>
+          <p>
+            <strong>C++</strong><br />Game development and system programming
+          </p>
+        </div>
+        <div class="item rust">
+          <div class="icon"><i class="fab fa-rust"></i></div>
+          <p><strong>Rust</strong><br />Memory-safe system programming</p>
+        </div>
+        <div class="item kotlin">
+          <div class="icon">
+            <i class="fab fa-kotlin">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuCgTXr31f9P5aDJ9MWsDDjL6lo5mloqPnpQ&s"
+                alt=""
+              />
+            </i>
+          </div>
+          <p><strong>Kotlin</strong><br />Android app development</p>
+        </div>
+        <div class="item laravel">
+          <div class="icon"><i class="fab fa-laravel"></i></div>
+          <p><strong>Laravel</strong><br />PHP framework for web development</p>
+        </div>
+        <div class="item vuejs">
+          <div class="icon"><i class="fab fa-vuejs"></i></div>
+          <p><strong>Vue.js</strong><br />Lightweight frontend framework</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-links">
+          <p>Lost? <a href="#">Call Support (Not your mom)</a></p>
+          <p>Want insider secrets? <a href="#">Join Early Access</a></p>
+          <p>Staying curious? <a href="#">Check the Changelog</a></p>
+          <p>Still confused? <a href="#">Ask the Experts</a></p>
+          <p class="powered">
+            Proudly powered by <a href="#">Lok Jagrut University (LJU)</a>
+          </p>
+        </div>
+        <div class="footer-signup">
+          <label for="email"
+            >Get updates (we promise they're interesting):</label
+          >
+          <div class="signup-form">
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              aria-label="Email address"
+            />
+            <button id="signup-btn">Subscribe Now</button>
+          </div>
+          <small>
+            No spam, only good vibes. Unsubscribe anytime. See our
+            <a href="#">Privacy Policy</a>.
+          </small>
+        </div>
+      </div>
+    </footer>
+    <script src="./main.js"></script>
+    <script></script>
+  </body>
+</html>

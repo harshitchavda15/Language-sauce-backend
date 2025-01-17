@@ -1,22 +1,20 @@
-from pydantic import BaseModel, EmailStr, Field, constr, ValidationError
+from pydantic import BaseModel, EmailStr, Field, validator
 from typing import Optional
 
 # Create User Schema
 class CreateUser(BaseModel):
     email: EmailStr
-    full_name: constr(min_length=2, max_length=100) 
-    password: constr(min_length=8)                 
-    confirm_password: constr(min_length=8)         
+    password: str
+    confirm_password: str  # Temporary field for validation
+    fullname: str
+    mobile_number: Optional[str] = None
 
     # Custom validation to ensure passwords match
-    def validate_passwords(self):
-        if self.password != self.confirm_password:
+    @validator("confirm_password")
+    def passwords_match(cls, confirm_password, values):
+        if "password" in values and confirm_password != values["password"]:
             raise ValueError("Passwords do not match")
-
-    # Overriding __init__ to call the custom validation
-    def __init__(self, **data):
-        super().__init__(**data)
-        self.validate_passwords()
+        return confirm_password
 
     class Config:
         orm_mode = True
@@ -25,18 +23,7 @@ class CreateUser(BaseModel):
 # Sign-In Schema
 class SignInRequest(BaseModel):
     email: EmailStr = Field(..., example="chavda@example.com")
-    fullname: str = Field(..., example="Chavda Harshit")
     password: str = Field(..., example="password@123")
-    confirm_password: str = Field(..., example="password@123")
-
-    # Custom validation to ensure passwords match
-    def validate_passwords(self):
-        if self.password != self.confirm_password:
-            raise ValueError("Passwords do not match")
-
-    def __init__(self, **data):
-        super().__init__(**data)
-        self.validate_passwords()
 
     class Config:
         orm_mode = True
@@ -45,15 +32,15 @@ class SignInRequest(BaseModel):
 # User Response Schema
 class UserResponse(BaseModel):
     id: int
-    username: str
-    email: str
-    full_name: Optional[str]
+    email: EmailStr
+    fullname: Optional[str]
+    mobile_number: Optional[str]
 
     class Config:
         orm_mode = True
 
 
-# User Login Schema
+# User Login Schema (if username-based login is used)
 class UserLogin(BaseModel):
     username: str
     password: str

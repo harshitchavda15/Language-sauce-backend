@@ -7,7 +7,7 @@ load_dotenv()
 
 class Settings(BaseSettings):
     # Database settings
-    DATABASE_URL: str = "postgresql+asyncpg://postgres:1507@localhost/ls"
+    DATABASE_URL: str = "mysql+asyncmy://root:1507@localhost:3306/ls"
     
     # Security settings
     SECRET_KEY: str = "HS"

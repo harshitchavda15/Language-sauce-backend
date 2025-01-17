@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programming Snippets & Docs</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    .code-block {
+      position: relative;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    .code-block {
+      position: relative;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    .copy-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="./index.html" style="text-decoration: none">
+      <div class="siteLogo">
+        <span class="LSLogo">LS</span><span class="DOCSLogo">DOCS</span>
+      </div>
+    </a>
+
+    <div class="searchBar">
+      <i class="fa fa-search searchIcon"></i>
+      <input type="text" id="searchInput" placeholder="Search Now" />
+    </div>
+    <div id="searchResults" class="search-results"></div>
+
+    <div>
+      <ul style="list-style: none; padding: 0">
+        <div>
+          <input type="checkbox" class="checkbox" id="checkbox" />
+          <label for="checkbox" class="checkbox-label">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+            <span class="ball"></span>
+          </label>
+        </div>
+        <li class="listItems">
+          <a href="./index.html" style="text-decoration: none">Go Home</a>
+        </li>
+        <li class="listItems">
+          <a href="./docs.html" style="text-decoration: none">Docs & Chill</a>
+        </li>
+        <li class="listItems">
+          <a href="./help.html" style="text-decoration: none">Need a Lifeline?</a>
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- Profile Section -->
+    <div class="profile-section">
+      <div class="profile-container">
+        <i class="fa-solid fa-gear" style="font-size: 1.5rem" id="profileDropdownButton"></i>
+        <span class="profile-label">Settings </span>
+      </div>
+      <ul class="dropdown-menu" id="profileDropdown">
+        <li><a href="./profile.html">My Profile</a></li>
+        <li><a href="./saved-2.html">Saved Snippets</a></li>
+        <li><a href="./login.html">Sign In</a></li>
+        <li><a href="./createAcc.html">Create Account</a></li>
+        <li class="logout"><a href="#">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+  <section class="docsSection">
+    <!-- Left Sidebar -->
+    <div class="sidebar">
+      <h3>Languages & Frameworks</h3>
+      <ul id="languageList"></ul>
+    </div>
+
+    <!-- Main Content Section -->
+    <main class="content">
+      <h1 id="contentTitle">Welcome!</h1>
+      <p id="contentDescription">
+        Select a programming language or framework from the left sidebar to
+        view snippets and docs.
+      </p>
+      <div class="code-block" id="codeSnippet">
+        <pre><code id="codeContent">Click a language to load its content...</code></pre>
+        <button id="copyCodeButton" class="copy-button">
+          <i class="fas fa-copy"></i> Copy Code
+        </button>
+      </div>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="rightbar">
+      <h3>External Resources</h3>
+      <ul id="externalLinks">
+        <li><a href="#" id="docLink" style="text-decoration: none;">Documentation</a></li>
+        <li><a href="#" id="apiLink" style="text-decoration: none;">API Reference</a></li>
+        <li><a href="#" id="tutorialLink" style="text-decoration: none;">Tutorials</a></li>
+      </ul>
+
+      <!-- Community Contributions (Dynamic Placeholder) -->
+      <section id="communityContributions">
+        <h3>Community Contributions</h3>
+        <p>Top contributors this month:</p>
+        <ul></ul>
+        <p>Want to see your name here? <a href="#" style="text-decoration: none;">Contribute now!</a></p>
+      </section>
+    </aside>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <p>Lost? <a href="#">Call Support (Not your mom)</a></p>
+        <p>Want insider secrets? <a href="#">Join Early Access</a></p>
+        <p>Staying curious? <a href="#">Check the Changelog</a></p>
+        <p>Still confused? <a href="#">Ask the Experts</a></p>
+        <p class="powered">
+          Proudly powered by <a href="#">Lok Jagrut University (LJU)</a>
+        </p>
+      </div>
+      <div class="footer-signup">
+        <label for="email">Get updates (we promise they're interesting):</label>
+        <div class="signup-form">
+          <input type="email" id="email" placeholder="Enter your email" aria-label="Email address" />
+          <button id="signup-btn">Subscribe Now</button>
+        </div>
+        <small>
+          No spam, only good vibes. Unsubscribe anytime. See our
+          <a href="#">Privacy Policy</a>.
+        </small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./docsScript2.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const codeContent = document.getElementById("codeContent");
+      const contentTitle = document.getElementById("contentTitle");
+      const contentDescription =
+        document.getElementById("contentDescription");
+      const copyButton = document.getElementById("copyCodeButton");
+
+      // Fetch JSON data
+      fetch("./data.json") // Ensure this path matches your JSON file location
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Check if data is available
+          if (!data.languages || data.languages.length === 0) {
+            console.error("No languages found in JSON data.");
+            return;
+          }
+
+          // Display the first language (for demonstration)
+          const language = data.languages[0];
+          contentTitle.textContent = language.title;
+          contentDescription.textContent = language.objective;
+          codeContent.textContent = language.code;
+
+          console.log("JSON data loaded successfully:", language);
+        })
+        .catch((error) => console.error("Error fetching JSON:", error));
+
+      // Copy Code Functionality
+      copyButton.addEventListener("click", function () {
+        if (!codeContent.textContent.trim()) {
+          alert("No code content available to copy!");
+          return;
+        }
+
+        const tempTextArea = document.createElement("textarea");
+        tempTextArea.value = codeContent.textContent;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        const successful = document.execCommand("copy");
+        document.body.removeChild(tempTextArea);
+
+        if (successful) {
+          alert("Code copied to clipboard!");
+        } else {
+          alert("Failed to copy code. Please try again.");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

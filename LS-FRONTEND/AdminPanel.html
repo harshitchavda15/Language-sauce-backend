@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LS Docs - Admin Panel</title>
+  <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- ========= LOGIN SCREEN =========== -->
+  <div class="login-container" id="loginScreen">
+    <div class="login-box">
+      <h2>Admin Login</h2>
+      <div class="form-group">
+        <label for="loginUser">Username</label>
+        <input type="text" id="loginUser" placeholder="Admin or Editor" />
+      </div>
+      <div class="form-group">
+        <label for="loginPass">Password</label>
+        <input type="password" id="loginPass" placeholder="Enter password" />
+      </div>
+      <button id="loginBtn">Login</button>
+    </div>
+  </div>
+
+  <!-- ========= MAIN ADMIN PANEL =========== -->
+  <div class="admin-container" id="adminPanel">
+
+    <!-- NAVIGATION -->
+    <nav class="admin-nav">
+      <h1>LS Docs Admin</h1>
+      <ul>
+        <li>
+          <div>
+            <input type="checkbox" class="checkbox" id="checkbox" />
+            <label for="checkbox" class="checkbox-label">
+              <i class="fas fa-moon"></i>
+              <i class="fas fa-sun"></i>
+              <span class="ball"></span>
+            </label>
+          </div>
+        </li>
+        <li data-view="dashboard">Dashboard</li>
+        <li data-view="snippets">Snippets</li>
+        <li data-view="categories">Categories</li>
+        <li data-view="users">Users</li>
+        <li data-view="settings">Settings</li>
+        <li id="logoutBtn">Logout</li>
+      </ul>
+    </nav>
+
+    <!-- WRAPPER -->
+    <div class="admin-wrapper">
+
+      <!-- SIDEBAR -->
+      <aside class="admin-sidebar">
+        <h2>Menu</h2>
+        <ul>
+          <li data-view="dashboard">Dashboard</li>
+          <li data-view="snippets">Manage Snippets</li>
+          <li data-view="categories">Manage Categories</li>
+          <li data-view="users">Manage Users</li>
+          <li data-view="settings">Settings</li>
+          <li id="logoutBtn2">Logout</li>
+        </ul>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="admin-main">
+
+        <!-- DASHBOARD VIEW -->
+        <section id="view-dashboard" style="display: none;">
+          <h2>Dashboard</h2>
+          <div class="dashboard-stats">
+            <div class="stat-box">
+              <h3>Active Users</h3>
+              <p id="activeUsersCount">0</p>
+            </div>
+            <div class="stat-box">
+              <h3>Snippet Count</h3>
+              <p id="snippetCount">0</p>
+            </div>
+            <div class="stat-box">
+              <h3>Your Role</h3>
+              <p id="userRole"></p>
+            </div>
+          </div>
+          <div id="chartContainer">
+            <canvas id="myChart"></canvas>
+          </div>
+        </section>
+
+        <!-- SNIPPETS VIEW -->
+        <section id="view-snippets" style="display: none;">
+          <h2>Manage Snippets</h2>
+
+          <div class="snippets-controls">
+            <input 
+              type="text"
+              id="snippetSearch"
+              placeholder="Search or tag:someTag..."
+            />
+            <select id="filterLanguage">
+              <option value="">All Languages</option>
+            </select>
+            <select id="filterCategory">
+              <option value="">All Categories</option>
+            </select>
+            <select id="filterFramework">
+              <option value="">All Frameworks</option>
+            </select>
+            <button id="addSnippetBtn">+ Add Snippet</button>
+            <button id="exportSnippetsBtn">Export JSON</button>
+            <button id="importSnippetsBtn">Import JSON</button>
+            <input type="file" id="importFileInput" style="display: none;" />
+            <button id="bulkDeleteBtn" style="background-color: #d73a49;">Bulk Delete</button>
+          </div>
+
+          <table id="snippetTable">
+            <thead>
+              <tr>
+                <th><input type="checkbox" id="selectAllCheckbox" /></th>
+                <th>Title</th>
+                <th>Language</th>
+                <th>Framework</th>
+                <th>Category</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populated by script.js -->
+            </tbody>
+          </table>
+
+          <!-- Pagination -->
+          <div class="pagination" id="snippetPagination"></div>
+        </section>
+
+        <!-- CATEGORIES VIEW -->
+        <section id="view-categories" style="display: none;">
+          <h2>Manage Categories (Coming Soon)</h2>
+          <p>This section would let you create/update categories, frameworks, etc.</p>
+        </section>
+
+        <!-- USERS VIEW -->
+        <section id="view-users" style="display: none;">
+          <h2>Manage Users</h2>
+          <p>A mock table of users for demonstration. In real usage, you'd fetch from your backend.</p>
+          <table id="usersTable">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Filled by script.js -->
+            </tbody>
+          </table>
+        </section>
+
+        <!-- SETTINGS VIEW -->
+        <section id="view-settings" style="display: none;">
+          <h2>Settings (Coming Soon)</h2>
+          <p>General site config, advanced options, etc.</p>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- SNIPPET MODAL (MULTI-STEP) -->
+  <div class="overlay" id="snippetOverlay">
+    <div class="modal">
+      <h2 id="modalTitle">Add Snippet</h2>
+
+      <div class="modal-steps">
+        <button id="step1Btn" class="active">Step 1</button>
+        <button id="step2Btn">Step 2</button>
+      </div>
+
+      <div class="modal-content">
+        <!-- Step 1 -->
+        <div id="step1" style="display: block;">
+          <div class="form-group">
+            <label for="snippetTitle">Title</label>
+            <input type="text" id="snippetTitle" placeholder="Snippet Title"/>
+          </div>
+          <div class="form-group">
+            <label for="snippetLanguage">Language</label>
+            <input type="text" id="snippetLanguage" placeholder="e.g. JavaScript, Python"/>
+          </div>
+          <div class="form-group">
+            <label for="snippetFramework">Framework/Library</label>
+            <input type="text" id="snippetFramework" placeholder="e.g. React, Django"/>
+          </div>
+          <div class="form-group">
+            <label for="snippetCategory">Category</label>
+            <input type="text" id="snippetCategory" placeholder="e.g. Frontend, Backend"/>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div id="step2" style="display: none;">
+          <div class="form-group">
+            <label for="snippetTags">Tags (comma separated)</label>
+            <input type="text" id="snippetTags" placeholder="e.g. auth, api, etc." />
+          </div>
+          <div class="form-group">
+            <label for="snippetCode">Code</label>
+            <textarea id="snippetCode" placeholder="Enter the code snippet..."></textarea>
+            <p><strong>Preview:</strong></p>
+            <pre id="codePreview"></pre>
+          </div>
+          <div class="form-group">
+            <label for="snippetExplanation">Explanation/Documentation</label>
+            <textarea id="snippetExplanation" placeholder="Explain your code snippet..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="cancelBtn" id="cancelSnippetBtn">Cancel</button>
+        <button class="saveBtn" id="saveSnippetBtn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single JavaScript file for all logic -->
+  <script src="./Admin.js"></script>
+</body>
+</html>

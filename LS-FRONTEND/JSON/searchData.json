@@ -1,0 +1,35 @@
+{
+    "items": [
+      {
+        "id": 1,
+        "title": "Python Basics",
+        "description": "Learn the fundamentals of Python programming.",
+        "link": "docs/python-basics.html"
+      },
+      {
+        "id": 2,
+        "title": "JavaScript DOM Manipulation",
+        "description": "Master the Document Object Model with JavaScript.",
+        "link": "docs/js-dom.html"
+      },
+      {
+        "id": 3,
+        "title": "CSS Flexbox Guide",
+        "description": "A comprehensive guide to CSS Flexbox layout.",
+        "link": "docs/css-flexbox.html"
+      },
+      {
+        "id": 4,
+        "title": "React State Management",
+        "description": "Learn state management in React with hooks.",
+        "link": "docs/react-state.html"
+      },
+      {
+        "id": 5,
+        "title": "PHP for Web Development",
+        "description": "Basics of using PHP for backend web development.",
+        "link": "docs/php-web.html"
+      }
+    ]
+  }
+  

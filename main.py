@@ -4,13 +4,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
 from database.session import SessionLocal, engine, Base
 from config import settings
-from crud.user_crud import get_user_by_username
+from crud.user_crud import get_user_by_email
 from auth.auth import verify_password, create_access_token
-from routes.user import router as user_router
-from routes.otp import router as otp_router
-from routes.snippet import router as snippet_router
-import os
+from routes.user_routes import router as user_router
+from routes.snippet_routes import router as snippet_router
 from dotenv import load_dotenv
+import os
 
 # Load the .env file
 load_dotenv()
@@ -39,21 +38,22 @@ app.add_middleware(
 
 # Include routers
 app.include_router(user_router, prefix="/api/v1/users", tags=["Users"])
-app.include_router(otp_router, prefix="/api/v1/otp", tags=["OTP"])
 app.include_router(snippet_router, prefix="/api/v1/snippets", tags=["Snippets"])
-app.include_router(user_router, prefix="/api/v1/users", tags=["Users"])
+# app.include_router(user_router, prefix="/api/v1/users", tags=["Users"])
 
 @app.get("/")
 async def root():
     return {"message": "API is running!"}
 
+#Initializr the database
+async def init_db():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
 # Ensure that the tables are created on startup
 @app.on_event("startup")
 async def startup():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-        print("Tables created successfully!")
-
+    await init_db()
 
 # Dependency to get the database session
 async def get_session() -> AsyncSession:
@@ -67,7 +67,7 @@ async def login(
     session: AsyncSession = Depends(get_session)
 ):
     # Retrieve the user by username
-    user = await get_user_by_username(session, form_data.username)
+    user = await get_user_by_email(session, form_data.username)
 
     # If the user doesn't exist or the password is incorrect, raise an exception
     if not user or not verify_password(form_data.password, user.hashed_password):

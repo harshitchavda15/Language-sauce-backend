@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <nav>
+      <a href="./index.html" style="text-decoration: none">
+        <div class="siteLogo">
+          <span class="LSLogo">LS</span><span class="DOCSLogo">DOCS</span>
+        </div>
+      </a>
+
+      <div>
+        <ul style="list-style: none">
+          <a href="./help.html" style="text-decoration: none">
+            <li class="listItems">Help</li>
+          </a>
+        </ul>
+      </div>
+      <div>
+        <input type="checkbox" class="checkbox" id="checkbox" />
+        <label for="checkbox" class="checkbox-label">
+          <i class="fas fa-moon"></i>
+          <i class="fas fa-sun"></i>
+          <span class="ball"></span>
+        </label>
+      </div>
+    </nav>
+
+    <header class="profile-header">
+      <!-- Default content in case fetch fails -->
+      <h1>Loading Profile...</h1>
+    </header>
+    <main id="profile-content" class="profile-content">
+      <!-- Default content in case fetch fails -->
+      <p>Loading content...</p>
+    </main>
+
+    <section class="edit-profile-container">
+      <h1>Edit Your Profile</h1>
+      <form id="editProfileForm">
+        <div class="form-group">
+          <label for="profileName">Name</label>
+          <input
+            type="text"
+            id="profileName"
+            placeholder="Enter your name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="profileEmail">Email</label>
+          <input
+            type="email"
+            id="profileEmail"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="profileContact">Contact</label>
+          <input
+            type="tel"
+            id="profileContact"
+            placeholder="Enter your contact number"
+            required
+          />
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="save-btn">Save Changes</button>
+          <a href="./profile.html" style="text-decoration: none"
+            ><button type="button" class="cancel-btn">Cancel</button></a
+          >
+        </div>
+      </form>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const mainElement = document.getElementById("profile-content");
+        const headerElement = document.querySelector(".profile-header");
+
+        // Fetch data from JSON
+        fetch(`./JSON/profileData.json?${Date.now()}`) // Cache busting
+          .then((response) => {
+            if (!response.ok)
+              throw new Error(`HTTP error! status: ${response.status}`);
+            return response.json();
+          })
+          .then((data) => {
+            const { profileHeader, profileContent } = data;
+
+            // Populate Header Section
+            headerElement.innerHTML = `
+              <h1 class="profile-name">${profileHeader.name}</h1>
+              <p class="profile-email">${profileHeader.email}</p>
+              <a href="${profileHeader.editProfileLink}" class="edit-profile-btn">${profileHeader.editProfileText}</a>
+            `;
+
+            // Populate Main Content
+            mainElement.innerHTML = "";
+
+            // Account Info Section
+            const accountSection = document.createElement("section");
+            accountSection.classList.add("account-info");
+            accountSection.innerHTML = `<h2>${profileContent.accountInfo.title}</h2>`;
+            profileContent.accountInfo.items.forEach((item) => {
+              const infoItem = document.createElement("div");
+              infoItem.classList.add("info-item");
+              infoItem.innerHTML = item.buttonText
+                ? `<label>${item.label}:</label><button class="reset-password-btn">${item.buttonText}</button>`
+                : `<label>${item.label}:</label><span>${item.value}</span>`;
+              accountSection.appendChild(infoItem);
+            });
+            mainElement.appendChild(accountSection);
+
+            // Settings Section
+            const settingsSection = document.createElement("section");
+            settingsSection.classList.add("settings");
+            settingsSection.innerHTML = `<h2>${profileContent.settings.title}</h2>`;
+            profileContent.settings.items.forEach((item) => {
+              const settingItem = document.createElement("div");
+              settingItem.classList.add("setting-item");
+              settingItem.innerHTML = `
+                <label>${item.label}:</label>
+                <button>${item.buttonText}</button>
+              `;
+              settingsSection.appendChild(settingItem);
+            });
+            mainElement.appendChild(settingsSection);
+          })
+          .catch((error) => {
+            console.error("Error fetching JSON:", error);
+            mainElement.innerHTML =
+              "<p>Error loading profile content. Please try again later.</p>";
+            headerElement.innerHTML = "<h1>Error loading profile header</h1>";
+          });
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const editProfileContainer = document.querySelector(
+          ".edit-profile-container"
+        );
+        const overlay = document.createElement("div");
+
+        // Add overlay styles
+        overlay.style.position = "fixed";
+        overlay.style.top = "0";
+        overlay.style.left = "0";
+        overlay.style.width = "100%";
+        overlay.style.height = "100%";
+        overlay.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+        overlay.style.zIndex = "999";
+        overlay.style.display = "none";
+
+        // Append the overlay to the body
+        document.body.appendChild(overlay);
+
+        // Function to show the edit profile container
+        const showEditProfile = () => {
+          editProfileContainer.style.position = "fixed";
+          editProfileContainer.style.top = "50%";
+          editProfileContainer.style.left = "50%";
+          editProfileContainer.style.transform = "translate(-50%, -50%)";
+          editProfileContainer.style.zIndex = "1000";
+          editProfileContainer.style.display = "block";
+          overlay.style.display = "block";
+        };
+
+        // Function to hide the edit profile container
+        const hideEditProfile = () => {
+          editProfileContainer.style.display = "none";
+          overlay.style.display = "none";
+        };
+
+        // Event listener for dynamic button
+        document.body.addEventListener("click", (e) => {
+          if (e.target.classList.contains("edit-profile-btn")) {
+            e.preventDefault();
+            showEditProfile();
+          }
+        });
+
+        // Event listener for cancel button
+        document.body.addEventListener("click", (e) => {
+          if (e.target.classList.contains("cancel-btn")) {
+            e.preventDefault();
+            hideEditProfile();
+          }
+        });
+
+        // Close the overlay if clicked outside the edit profile container
+        overlay.addEventListener("click", hideEditProfile);
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const themeSwitch = document.getElementById("checkbox");
+        const currentTheme = localStorage.getItem("theme");
+
+        // Apply saved theme on page load
+        if (currentTheme) {
+          document.documentElement.setAttribute("data-theme", currentTheme);
+          themeSwitch.checked = currentTheme === "dark";
+        }
+
+        // Toggle theme
+        themeSwitch.addEventListener("change", () => {
+          const theme = themeSwitch.checked ? "dark" : "light";
+          document.documentElement.setAttribute("data-theme", theme);
+          localStorage.setItem("theme", theme);
+        });
+      });
+    </script>
+  </body>
+</html>

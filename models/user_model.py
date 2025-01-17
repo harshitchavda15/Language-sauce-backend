@@ -1,29 +1,14 @@
-from sqlalchemy import Column, String, Integer, DateTime
-from sqlalchemy.sql import func
+from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
-from datetime import datetime, timedelta
-from models.snippet_model import Snippet
-
-Base = declarative_base()
+from database.session import Base
 
 class User(Base):
     __tablename__ = "users"
-    
+
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, nullable=False)
-    email = Column(String, unique=True, nullable=False)
-    hashed_password = Column(String, nullable=False)
+    email = Column(String(100), unique=True, nullable=False)  # User's email address
+    password = Column(String(255), nullable=False)  # User's password
+    mobile_number = Column(String(15), nullable=True)  # New column
+    fullname = Column(String(100), nullable=False)  # Full name of the user
 
-    snippets = relationship("Snippet", back_populates="user")
-
-
-class OTP(Base):
-    __tablename__ = "otps"
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True)
-    otp = Column(String)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    
-    def is_expired(self):
-        return self.created_at < datetime.utcnow() - timedelta(minutes=5)
+    snippets = relationship("Snippet", back_populates="user")  # Relationship with Snippet

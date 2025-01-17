@@ -1,0 +1,17 @@
+{
+    "languages": [
+      {
+        "id": "javascript",
+        "title": "Implementing a Trie Data Structure",
+        "objective": "To create a Trie, a tree-like data structure, used to efficiently store and search a dynamic set of strings, typically for prefix-based searches, such as in autocomplete systems or dictionary applications.",
+        "code": "class TrieNode {\n  constructor() {\n    this.children = {};\n    this.isEndOfWord = false;\n  }\n}\n\nclass Trie {\n  constructor() {\n    this.root = new TrieNode();\n  }\n\n  insert(word) {\n    let node = this.root;\n    for (let char of word) {\n      if (!node.children[char]) {\n        node.children[char] = new TrieNode();\n      }\n      node = node.children[char];\n    }\n    node.isEndOfWord = true;\n  }\n\n  search(word) {\n    let node = this.root;\n    for (let char of word) {\n      if (!node.children[char]) {\n        return false;\n      }\n      node = node.children[char];\n    }\n    return node.isEndOfWord;\n  }\n}",
+        "explanation": "This code implements a Trie data structure to facilitate prefix-based searches. It includes methods to insert words, search for exact matches, and check for prefixes.",
+        "use_cases": [
+          "Autocomplete systems",
+          "Spell checking",
+          "Word games like Scrabble"
+        ]
+      }
+    ]
+  }
+  

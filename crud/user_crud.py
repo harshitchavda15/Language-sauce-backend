@@ -31,28 +31,17 @@ async def create_user(session: AsyncSession, user: CreateUser):
         logging.error(f"Error creating user: {e}")
         raise e
 
-async def get_user_by_username(session: AsyncSession, username: str):
+async def get_user_by_email(session: AsyncSession, email: str):
     try:
-        # Execute query to find user by username
-        result = await session.execute(select(User).filter(User.username == username))
+        result = await session.execute(select(User).filter(User.email == email))
         user = result.scalars().first()
-        
-        if user:
-            logging.info(f"User found: {username}")
-        else:
-            logging.warning(f"User not found: {username}")
-        
+        if user is None:
+            logging.warning(f"No user found with email: {email}")
         return user
-    
     except Exception as e:
-        logging.error(f"Error fetching user by username: {e}")
+        logging.error(f"Error fetching user by email: {e}")
         raise e
-
-async def get_user_by_email(db: AsyncSession, email: str):
-    stmt = select(User).where(User.email == email)
-    result = await db.execute(stmt)
-    return result.scalar_one_or_none()
-
+    
 async def add_user(email,fullname,password):
     new_user=User(
         email=email,
